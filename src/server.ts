@@ -2,6 +2,8 @@ import {Server  } from "http";
 import express from "express";
 import mongoose from  "mongoose";
 
+import dotenv from "dotenv";
+dotenv.config();
 
 
 
@@ -12,7 +14,7 @@ let server :Server;
 const app = express();
 const startServer =async ()=>{
 try {
-      await mongoose.connect("mongodb+srv://todotest:6VjC74btjQxT1tk7@cluster0.ig6ro.mongodb.net/TourSync-DB?appName=Cluster0")
+      await mongoose.connect(process.env.MONGODB_URL as string);
 
     console.log("Connected to MongoDB");   
 
