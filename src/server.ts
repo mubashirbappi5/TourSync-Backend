@@ -7,7 +7,6 @@ dotenv.config();
 
 
 
-
 let server :Server;
 
 
@@ -32,3 +31,46 @@ try {
 
 
 startServer();
+
+process.on("SIGTERM",()=>{
+    console.error("SIGTERM received! Shutting down....");
+    if(server){
+        server.close(()=>{
+            process.exit(1)
+        })
+    }
+
+     process.exit(1)
+})
+process.on("SIGINT",()=>{
+    console.error("SIGINT received! Shutting down....");
+    if(server){
+        server.close(()=>{
+            process.exit(1)
+        })
+    }
+
+     process.exit(1)
+})
+process.on("unhandledRejection",()=>{
+    console.error("Unhandled Rejection! Shutting down....");
+    if(server){
+        server.close(()=>{
+            process.exit(1)
+        })
+    }
+
+     process.exit(1)
+})
+
+
+process.on("uncaughtException",()=>{
+    console.error("Uncaught Exception! Shutting down....");
+    if(server){
+        server.close(()=>{
+            process.exit(1)
+        })
+    }
+
+     process.exit(1)
+})
