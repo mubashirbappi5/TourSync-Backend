@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import {Server  } from "http";
 import mongoose from  "mongoose";
 
-import dotenv from "dotenv";
+
 import app from "./app";
-dotenv.config();
+import envVars from './app/config/env';
+
 
 
 
@@ -13,12 +15,12 @@ let server :Server;
 
 const startServer =async ()=>{
 try {
-      await mongoose.connect(process.env.MONGODB_URL as string);
+      await mongoose.connect(envVars.mongoDBUrl as string);
 
     console.log("Connected to MongoDB");   
 
-    server =app.listen(5000,()=>{
-        console.log("Server is running on port 5000");
+    server =app.listen(envVars.port,()=>{
+        console.log(`Server is running on port ${envVars.port}`);
 
     })
 
