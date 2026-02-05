@@ -1,8 +1,8 @@
 import {Server  } from "http";
-import express from "express";
 import mongoose from  "mongoose";
 
 import dotenv from "dotenv";
+import app from "./app";
 dotenv.config();
 
 
@@ -11,7 +11,7 @@ dotenv.config();
 let server :Server;
 
 
-const app = express();
+
 const startServer =async ()=>{
 try {
       await mongoose.connect(process.env.MONGODB_URL as string);
