@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 
 
 import dotenv from "dotenv";
-import { de } from "zod/v4/locales";
+
 dotenv.config();
 
 
