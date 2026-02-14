@@ -6,6 +6,20 @@ export enum role {
     GUIDE="GUIDE"
     
 }
+
+export interface IAuthProvider {
+    provider:string,
+    providerId:string,
+
+
+
+}
+
+export enum ISActive {
+    ACTIVE="ACTIVE",
+    INACTIVE="INACTIVE",
+    BLOCKED="BLOCKED"
+}
 export interface IUser {
     name:string,
     email:string,
@@ -14,10 +28,10 @@ export interface IUser {
     picture?:string,
     address?:string,
     isDeleted?:string,
-    isActive?:string,
+    isActive?:ISActive,
     isVerified?:string,
      role:role,
-    auth:
+    auths:IAuthProvider[],
    
     bookings?:
     guides?:
