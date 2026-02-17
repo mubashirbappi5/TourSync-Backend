@@ -3,7 +3,8 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 
 import dotenv from "dotenv";
-import { userRoute } from "./app/modules/user/User.route";
+import { router } from './app/routes/index';
+
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use("/api/v1/user",userRoute)
+app.use("/api/v1",router)
 app.get("/",(req:Request, res:Response)=>{
     res.send("Welcome to TourSync API");
 })
