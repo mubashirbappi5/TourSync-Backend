@@ -2,6 +2,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 
+import httpStatus from 'http-status-codes'
 import dotenv from "dotenv";
 import { router } from './app/routes/index';
 
@@ -21,8 +22,8 @@ app.get("/",(req:Request, res:Response)=>{
 })
 
 app.use((err: Error, req: Request,res: Response, next: NextFunction)=>{
-    console.error(err.stack);
-    res.status(500).json({message:"Internal Server Error",error:err})
+    
+    res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message:"Internal Server Error",error:err})
     next(err);
 })
 

@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import httpStatus from 'http-status-codes'
 import { userServices } from "./User.service";
 
-const createUser = async (req:Request, res:Response)=>{
+const createUser = async (req:Request, res:Response,next:NextFunction)=>{
     try{
 
        const user  = await userServices.createUserService(req.body)
@@ -13,8 +13,7 @@ const createUser = async (req:Request, res:Response)=>{
 
     }
     catch(err){
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message:"Internal Server Error",error:err})
-        
+      next(err)
     }
 }
 
