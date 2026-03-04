@@ -27,6 +27,10 @@ app.use((err: Error, req: Request,res: Response, next: NextFunction)=>{
     next(err);
 })
 
+app.use((req: Request, res: Response)=>{
+    res.status(httpStatus.NOT_FOUND).json({message:"Route Not Found"})
+})
+
 
 export default app;
 
