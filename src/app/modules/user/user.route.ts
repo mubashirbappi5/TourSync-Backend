@@ -1,33 +1,27 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { userController } from "./User.controller";
-import z from "zod";
+
+
+import { ZodSchema } from "zod";
+import { createUserZodSchema } from "./user.validate";
+
 
 const router = Router()
-router.post("/register", async (req:Request,res:Response,next:NextFunction)=>{
 
-    const createUserZodSchema = z.object({
-       name: z.string({ error: "Name is required" }).min(3),
-        email: z.string({ error: "Email is required" }).email(),
-        password: z.string({ error: "Password is required" }).min(6),
-        phone: z.string().optional(),
-        picture: z.string().optional(),
-        address: z.string().optional(),
-        isDeleted: z.boolean().optional(),
-        isActive: z.boolean().optional(),
-        isVerified: z.boolean().optional(),
-        role: z.string().optional(),
-        auths: z.array(z.string()).optional(),
-        bookings: z.array(z.string()).optional(),
-        guides: z.array(z.string()).optional()
+const validateRequest = (Zodschema:ZodSchema)=>async (req:Request,res:Response,next:NextFunction)=>{
 
-    }
- 
 
-)  
-
- req.body= await createUserZodSchema.parseAsync(req.body)
+    
+try{
+     req.body= await Zodschema.parseAsync(req.body)
  next()
 
-    }, userController.createUser)
+}
+catch(error){
+    next(error)
+}
+}
+
+router.post("/register", validateRequest(createUserZodSchema), userController.createUser)
 
 export const userRoute = router
